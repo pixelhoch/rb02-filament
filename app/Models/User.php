@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -21,7 +23,31 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
+        'email_verified_at',
         'password',
+        'username',
+        'trial_ends_at',
+        'verification_code',
+        'verified',
+        'phone',
+        'address1',
+        'address2',
+        'zip',
+        'city',
+        'country',
+        'state',
+        'language',
+        'timezone',
+        'currency',
+        'stripe_id',
+        'card_brand',
+        'card_last_four',
+        'role',
+        'lab_id',
+        'doctor_id',
+        'patient_number',
+        'birthdate',
     ];
 
     /**
@@ -39,12 +65,35 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'id' => 'integer',
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'trial_ends_at' => 'datetime',
+        'verified' => 'integer',
+        'lab_id' => 'integer',
+        'doctor_id' => 'integer',
+        'birthdate' => 'date',
+    ];
+
+    public function books(): HasMany
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Book::class);
+    }
+
+    public function analyses(): HasMany
+    {
+        return $this->hasMany(Analysis::class);
+    }
+
+    public function allergens(): BelongsToMany
+    {
+        return $this->belongsToMany(Allergen::class);
+    }
+
+    public function recipes(): BelongsToMany
+    {
+        return $this->belongsToMany(Recipe::class);
     }
 
     /**
