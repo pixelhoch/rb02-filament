@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('remember_token')->nullable();
-            $table->string('username')->unique();
+            $table->string('username')->unique()->nullable();
             $table->dateTime('trial_ends_at')->nullable();
             $table->string('verification_code')->nullable();
             $table->tinyInteger('verified')->nullable();
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('stripe_id')->nullable();
             $table->string('card_brand')->nullable();
             $table->string('card_last_four')->nullable();
-            $table->enum('role', ["admin","lab","doctor","patient"]);
+            $table->enum('role', ["admin","lab","doctor","patient"])->nullable();
             $table->unsignedInteger('lab_id')->nullable();
             $table->unsignedInteger('doctor_id')->nullable();
             $table->string('patient_number')->unique()->nullable();
