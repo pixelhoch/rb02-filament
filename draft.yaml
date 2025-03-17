@@ -1,0 +1,49 @@
+models:
+  # File for automatically creating models and their relations
+  User:
+    relationships:
+      hasMany: Book
+      belongsToMany: Allergen, Recipe
+  Allergen:
+    name: string
+    code: string
+    description: text nullable
+    relationships:
+      belongsToMany: Ingredient, User
+  Ingredient:
+    name: string
+    description: text nullable
+    relationships:
+      belongsToMany: Recipe, Allergen
+  Recipe:
+    title: string
+    subtitle: string nullable
+    serving: integer nullable
+    language: string nullable
+    images: json nullable
+    description: text nullable
+    difficulty: enum:einfach,mittel,schwierig nullable
+    diet: enum:vegan,vegetarisch nullable
+    time: enum:"Bis 30 Minuten","Bis 60 Minuten","Bis 2 Stunden","Mehr als 2 Stunden" nullable
+    relationships:
+      belongsToMany: Ingredient, Allergen, RecipeCategory, Country, Book, User
+  RecipeCategory:
+    name: string # e.g., Beilage, Fingerfood, etc.
+    relationships:
+      belongsToMany: Recipe
+  Country:
+    name: string
+    code: string
+    telephone: string
+    relationships:
+      belongsToMany: Recipe
+  Book:
+    name: string
+    user_id: unsignedInteger
+    relationships:
+      belongsTo: User
+      belongsToMany: Recipe
+
+seeders: User, Allergen, Ingredient, Recipe, Book
+
+
