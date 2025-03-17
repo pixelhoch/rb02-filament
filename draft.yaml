@@ -7,7 +7,7 @@ models:
     email_verified_at: timestamp nullable
     password: string
     remember_token: string nullable
-    username: string unique
+    username: string unique nullable
     trial_ends_at: dateTime nullable
     verification_code: string nullable
     verified: tinyInteger nullable

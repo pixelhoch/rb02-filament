@@ -15,6 +15,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AllergenResource extends Resource
 {
+    public function boot(): void
+    {
+        Filament::registerResources([
+            AllergenResource::class,
+        ]);
+    }
+
     protected static ?string $model = Allergen::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
